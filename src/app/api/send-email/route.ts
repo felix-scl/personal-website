@@ -1,18 +1,18 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.office365.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.P_EMAIL,
-    pass: process.env.P_PASSWORD,
-  },
-});
-
 export async function POST(request: Request) {
   const { fromName, fromEmail, message } = await request.json();
+
+  const transporter = nodemailer.createTransport({
+    host: "smtp.office365.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.P_EMAIL,
+      pass: process.env.P_PASSWORD,
+    },
+  });
 
   try {
     const result = await transporter.sendMail({
